@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taipei Travel Itinerary · March 20–26, 2026</title>
+<style>
+  :root {
+    --primary: #0f766e;
+    --primary-light: #ccfbf1;
+    --accent: #f59e0b;
+    --accent-light: #fef3c7;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --blue: #1d4ed8;
+    --blue-light: #dbeafe;
+    --rose: #e11d48;
+    --rose-light: #ffe4e6;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+    color: white;
+    padding: 24px 16px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .trip-title {
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+
+  .trip-subtitle {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+
+  .print-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .print-btn:hover { background: rgba(255,255,255,0.25); }
+
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 28px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+  }
+
+  /* DAY CARDS */
+  .day-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--card);
+    transition: background 0.15s;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .day-header:hover { background: #f1f5f9; }
+
+  .day-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .day-number {
+    background: var(--primary);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .day-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .day-label {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .day-budget-badge {
+    background: var(--accent-light);
+    color: #92400e;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .day-chevron {
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .day-chevron.open { transform: rotate(180deg); }
+
+  .day-body {
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .day-body.hidden { display: none; }
+
+  /* TIME BLOCKS */
+  .schedule {
+    margin: 14px 0;
+  }
+
+  .time-block {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .time-block:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 37px;
+    top: 24px;
+    bottom: -6px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .time-col {
+    flex-shrink: 0;
+    width: 64px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding-top: 3px;
+    text-align: right;
+  }
+
+  .time-dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: 6px;
+    border: 2px solid var(--primary-light);
+  }
+
+  .time-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .time-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .time-cost {
+    font-size: 11px;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+
+  .time-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* MRT INFO */
+  .mrt-info {
+    background: var(--blue-light);
+    border-left: 3px solid var(--blue);
+    border-radius: 0 8px 8px 0;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 12px;
+    color: #1e3a8a;
+  }
+
+  .mrt-info strong { font-weight: 600; }
+
+  /* FOOD TAGS */
+  .food-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .food-tag {
+    background: var(--rose-light);
+    color: var(--rose);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  /* BUTTONS */
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .btn-maps {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .btn-maps:hover { background: #0d6460; }
+
+  .btn-klook {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ff5c00;
+    color: white;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .btn-klook:hover { background: #e05200; }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: white;
+    color: var(--text);
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover { background: var(--bg); }
+
+  /* WARNING NOTE */
+  .warning-note {
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: #78350f;
+    margin-top: 10px;
+  }
+
+  /* FOOD GUIDE */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .food-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .food-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .food-item {
+    font-size: 12px;
+    color: var(--text);
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+
+  .food-item:last-child { border-bottom: none; }
+
+  .food-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  /* BUDGET TABLE */
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .budget-table th {
+    background: var(--primary);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .budget-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .budget-table tr:last-child td { border-bottom: none; }
+  .budget-table tr:nth-child(even) td { background: #f8fafc; }
+  .budget-table .total-row td {
+    background: var(--primary-light);
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  /* TRANSPORT */
+  .transport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .transport-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .transport-day {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .transport-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    font-size: 12px;
+  }
+
+  .mrt-pill {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .mrt-blue { background: #1d4ed8; color: white; }
+  .mrt-red { background: #dc2626; color: white; }
+  .mrt-brown { background: #92400e; color: white; }
+  .mrt-green { background: #16a34a; color: white; }
+  .mrt-orange { background: #ea580c; color: white; }
+
+  /* WEATHER */
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .weather-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .weather-icon { font-size: 28px; margin-bottom: 6px; }
+  .weather-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+  .weather-value { font-size: 14px; font-weight: 600; color: var(--text); }
+  .weather-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* EASYCARD TIP */
+  .tip-box {
+    background: var(--purple-light);
+    border: 1px solid #c4b5fd;
+    border-left: 3px solid var(--purple);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #3b0764;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  .tip-box strong { font-weight: 700; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 6px 0;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; font-size: 12px; }
+    .site-header { position: static; background: white !important; color: black !important; border-bottom: 2px solid #0f766e; box-shadow: none; }
+    .trip-title { color: #0f766e !important; }
+    .badge { background: #e2e8f0 !important; color: black !important; border-color: #cbd5e1 !important; }
+    .print-btn { display: none !important; }
+    .day-card { box-shadow: none; border: 1px solid #cbd5e1; }
+    .day-header { cursor: default; }
+    .day-body.hidden { display: block !important; }
+    .day-chevron { display: none; }
+    .main { padding: 12px 0; }
+    .btn-maps, .btn-klook {
+      background: transparent !important;
+      color: #0f766e !important;
+      border: 1px solid #0f766e !important;
+      text-decoration: none;
+    }
+    a[href]::after { content: " (" attr(href) ")"; font-size: 9px; color: #666; }
+    .btn-maps::after, .btn-klook::after { display: none; }
+    .section-title { color: #0f766e; }
+    .day-number { background: #0f766e !important; }
+    .budget-table th { background: #0f766e !important; }
+  }
+
+  @media (max-width: 600px) {
+    .food-grid, .transport-grid, .weather-grid { grid-template-columns: 1fr 1fr; }
+    .budget-table { font-size: 11px; }
+    .budget-table th, .budget-table td { padding: 7px 10px; }
+  }
+
+  @media (max-width: 400px) {
+    .food-grid, .transport-grid, .weather-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="header-inner">
+    <div class="header-top">
+      <div>
+        <div class="trip-title">🇹🇼 Taipei, Taiwan · Travel Itinerary</div>
+        <div class="trip-subtitle">📅 March 20–26, 2026 &nbsp;·&nbsp; 📍 Wanhua District, near Ximen Station</div>
+      </div>
+      <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+    </div>
+    <div class="badges">
+      <span class="badge">📆 7 Days</span>
+      <span class="badge">💰 NT$6,750–8,700 est.</span>
+      <span class="badge">🚇 Blue · Red · Brown Lines</span>
+      <span class="badge">🏨 Ximen MRT Station</span>
+      <span class="badge">💳 EasyCard Recommended</span>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- NAV TABS -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;margin-top:4px;">
+    <button class="btn-outline" onclick="scrollTo('itinerary')">📅 Itinerary</button>
+    <button class="btn-outline" onclick="scrollTo('food')">🍜 Food Guide</button>
+    <button class="btn-outline" onclick="scrollTo('budget')">💰 Budget</button>
+    <button class="btn-outline" onclick="scrollTo('transport')">🚇 Transport</button>
+    <button class="btn-outline" onclick="scrollTo('weather')">🌦️ Weather</button>
+    <button class="btn-outline" onclick="expandAll()">📖 Expand All</button>
+    <button class="btn-outline" onclick="collapseAll()">📕 Collapse All</button>
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="section-title" id="itinerary">📅 Daily Itinerary</div>
+
+  <!-- DAY 1 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 1</span>
+        <span class="day-date">Friday, March 20</span>
+        <span class="day-label">✈️ Arrival + Ximending</span>
+      </div>
+      <span class="day-budget-badge">NT$500–1,000</span>
+      <span class="day-chevron open">▼</span>
+    </div>
+    <div class="day-body">
+      <div class="mrt-info">
+        <strong>🚇 Route:</strong> Airport MRT (Taoyuan Airport → Taipei Main Station) → Blue Line to Ximen Station · ~50–60 min · NT$160
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Arrival</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">✈️ Land at Taoyuan International Airport <span class="time-cost">Free</span></div>
+            <div class="time-desc">Clear customs, collect luggage, purchase EasyCard at airport MRT station</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Transit</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🚇 Airport MRT → Taipei Main → Ximen <span class="time-cost">NT$160</span></div>
+            <div class="time-desc">Take Airport MRT Express to Taipei Main Station, switch to Blue Line (BL11) → Ximen (BL12) · ~55 min total</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Evening</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏨 Check in &amp; freshen up <span class="time-cost">—</span></div>
+            <div class="time-desc">Hotel in Wanhua District near Ximen Station</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Night</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🛍️ Ximending Walking District <span class="time-cost">Free</span></div>
+            <div class="time-desc">Explore the vibrant shopping and street art hub — 5 min walk from hotel</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Night</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏮 Red House (西門紅樓) <span class="time-cost">Free</span></div>
+            <div class="time-desc">Historic octagonal market building, now a cultural space &amp; night market area</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Dinner</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🍢 Ximending Street Food <span class="time-cost">NT$200–400</span></div>
+            <div class="time-desc">Scallion pancakes, stinky tofu, bubble tea, grilled squid. Optional: Carrefour Guilin Store for snacks &amp; groceries.</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🥟 Dumplings</span>
+        <span class="food-tag">🧋 Bubble Tea</span>
+        <span class="food-tag">🦑 Grilled Squid</span>
+        <span class="food-tag">🥞 Scallion Pancake</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Taoyuan+International+Airport/Ximen+Station,+Taipei" target="_blank" rel="noopener">📍 Airport → Ximen Route</a>
+        <a class="btn-maps" href="https://www.google.com/maps/search/Ximending+Walking+District+Taipei" target="_blank" rel="noopener">🗺️ Ximending</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 2</span>
+        <span class="day-date">Saturday, March 21</span>
+        <span class="day-label">🏛️ Historic Taipei</span>
+      </div>
+      <span class="day-budget-badge">NT$830–1,030</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="mrt-info">
+        <strong>🚇 Route:</strong> Ximen (BL12) → Longshan Temple (BL07) – 3 stops, Blue Line · ~6 min · CKS Memorial: Ximen → Chiang Kai-shek (GR24) transfer at Taipei Main (BL12 → GR24) · ~12 min
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🛕 Longshan Temple <span class="time-cost">Free</span></div>
+            <div class="time-desc">One of Taipei's most sacred temples. Blue Line from Ximen to Longshan Temple station (BL07), 3 stops. Opens 6am.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🧱 Bopiliao Historic Block <span class="time-cost">Free</span></div>
+            <div class="time-desc">200m walk from Longshan Temple. Restored Qing-dynasty street with art galleries and cafes.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Midday</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏛️ Chiang Kai-shek Memorial Hall <span class="time-cost">Free</span></div>
+            <div class="time-desc">MRT: Longshan Temple → Taipei Main (Blue) → Chiang Kai-shek (Green Line, GR24). Change of the guard ceremony every hour.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌳 Daan Forest Park <span class="time-cost">Free</span></div>
+            <div class="time-desc">MRT: CKS Memorial Hall (GR24) → Daan Forest Park (BR13, Brown Line transfer at Guting). Taipei's Central Park — great for relaxing walk.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Evening</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌙 Ningxia Night Market <span class="time-cost">NT$300–500</span></div>
+            <div class="time-desc">MRT back toward Taipei Main area, take taxi/bus to Ningxia Rd. Famous for oyster vermicelli, pork liver soup, taro balls.</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🦪 Oyster Vermicelli</span>
+        <span class="food-tag">🍢 Braised Pork Rice</span>
+        <span class="food-tag">🍡 Taro Balls</span>
+        <span class="food-tag">🥣 Pork Liver Soup</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+MRT+Station/Longshan+Temple+Taipei/Bopiliao+Historic+Block/Chiang+Kai-shek+Memorial+Hall/Daan+Forest+Park/Ningxia+Night+Market+Taipei" target="_blank" rel="noopener">📍 Day 2 Full Route</a>
+        <a class="btn-maps" href="https://www.google.com/maps/search/Ningxia+Night+Market+Taipei" target="_blank" rel="noopener">🗺️ Ningxia Night Market</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 3</span>
+        <span class="day-date">Sunday, March 22</span>
+        <span class="day-label">🌊 North Coast Day Tour</span>
+      </div>
+      <span class="day-budget-badge">NT$1,200–1,400</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="mrt-info">
+        <strong>🚇 Option A – Klook Tour:</strong> Pickup near hotel. Includes Yehliu + Jiufen + Shifen. ~10–11 hrs. Easiest option, no transfers.
+      </div>
+      <div class="mrt-info" style="background:#fef3c7;border-left-color:#f59e0b;color:#78350f;margin-top:6px;">
+        <strong>🗺️ Option B – DIY:</strong> Ximen → Taipei Main (Blue) → Ruifang Station (TRA train, ~50 min) → Bus to Jiufen → walk to Shifen (or taxi) → Yehliu by bus. ~3–4 hrs travel total. More flexible, slightly cheaper.
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🧊 Yehliu Geopark <span class="time-cost">NT$80</span></div>
+            <div class="time-desc">Stunning coastal rock formations including the famous "Queen's Head" — arrive early to beat crowds. ~1.5 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Midday</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏮 Jiufen Old Street <span class="time-cost">NT$300–400 food</span></div>
+            <div class="time-desc">Inspiration for Studio Ghibli's "Spirited Away." Narrow alleys, lanterns, taro balls, and sea views. ~2 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🎆 Shifen Old Street + Sky Lanterns <span class="time-cost">NT$200 lantern</span></div>
+            <div class="time-desc">Release a sky lantern over the river on the old train tracks — one of Taiwan's most iconic experiences. ~1.5 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Evening</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌙 Raohe Night Market <span class="time-cost">NT$300–400</span></div>
+            <div class="time-desc">Return to Taipei. One of Taipei's oldest night markets at Songshan MRT. Try black pepper buns (胡椒餅)!</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🍡 Jiufen Taro Balls</span>
+        <span class="food-tag">🥟 Black Pepper Bun</span>
+        <span class="food-tag">🍢 Raohe BBQ</span>
+        <span class="food-tag">🍵 Tea Eggs</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+Station+Taipei/Yehliu+Geopark/Jiufen+Old+Street/Shifen+Old+Street/Raohe+Night+Market+Taipei" target="_blank" rel="noopener">📍 Day 3 Full Route</a>
+        <a class="btn-klook" href="https://www.klook.com/en-PH/activity/1658-yehliu-jiufen-shifen-day-tour-taipei/" target="_blank" rel="noopener">🎟️ Book Klook Tour</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 4 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 4</span>
+        <span class="day-date">Monday, March 23</span>
+        <span class="day-label">🐘 Zoo + Maokong + Taipei 101</span>
+      </div>
+      <span class="day-budget-badge">NT$1,700–2,000</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="mrt-info">
+        <strong>🚇 Route:</strong> Ximen (BL12) → Taipei Main (BL12) → transfer to Brown Line (BR) → Taipei Zoo (BR01) · ~35 min · EasyCard NT$30. Then Maokong Gondola from Zoo station.
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🐼 Taipei Zoo <span class="time-cost">NT$60</span></div>
+            <div class="time-desc">Asia's largest zoo with giant pandas! Blue Line → transfer to Brown Line (Daan station) → Taipei Zoo (BR01). Opens 9am. ~2 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Midday</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🚡 Maokong Gondola <span class="time-cost">NT$120 round trip</span></div>
+            <div class="time-desc">Scenic gondola ride up the mountain. Enjoy tea plantations, mountain views, and tea restaurants. ~3 hrs. Take gondola back.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🫖 Tea Lunch at Maokong <span class="time-cost">NT$400–600</span></div>
+            <div class="time-desc">Try Tieguanyin oolong, tea-smoked chicken, and mountain vegetables at a hillside teahouse restaurant.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Evening</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏙️ Taipei 101 Observatory <span class="time-cost">NT$600</span></div>
+            <div class="time-desc">Return by gondola → MRT to Taipei 101/World Trade Center (Red Line, R03). <strong>Sunset ~18:08 in late March</strong> — time your visit for golden hour views. 89F indoor + 91F outdoor decks.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Night</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌇 Xinyi District Night Views <span class="time-cost">NT$200–300 dinner</span></div>
+            <div class="time-desc">Walk around Xinyi shopping district. Grab dinner at City Super or area restaurants before returning to Ximen.</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🫖 Oolong Tea</span>
+        <span class="food-tag">🍗 Tea-Smoked Chicken</span>
+        <span class="food-tag">🌿 Mountain Veggies</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+Station+Taipei/Taipei+Zoo/Maokong+Gondola+Station/Taipei+101+Observatory" target="_blank" rel="noopener">📍 Day 4 Full Route</a>
+        <a class="btn-klook" href="https://www.klook.com/en-PH/activity/181-taipei-101-observatory-ticket/" target="_blank" rel="noopener">🎟️ Taipei 101 Ticket</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 5 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 5</span>
+        <span class="day-date">Tuesday, March 24</span>
+        <span class="day-label">♨️ Beitou Hot Springs + Tamsui</span>
+      </div>
+      <span class="day-budget-badge">NT$820–1,020</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="mrt-info">
+        <strong>🚇 Route:</strong> Ximen (BL12) → Taipei Main (BL12) → transfer to Red Line → Xinbeitou (R22A branch) for Beitou · ~35 min. Then Red Line back to Tamsui (R28). Full Red Line day.
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">♨️ Beitou Thermal Valley (地熱谷) <span class="time-cost">Free</span></div>
+            <div class="time-desc">Eerie jade-green boiling spring. MRT to Xinbeitou station, 15-min walk. Opens 9am. Steam from 100°C sulfurous water.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Midday</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🛁 Optional: Private Hot Spring Soak <span class="time-cost">NT$300–500/hr</span></div>
+            <div class="time-desc">Book a private room at Spring City Resort or Millennium Hot Spring. Radium spring waters unique to Beitou. Bring swimwear!</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🚇 MRT to Tamsui <span class="time-cost">NT$40</span></div>
+            <div class="time-desc">Beitou → Xinbeitou → Beitou (MRT) → Red Line north → Tamsui (R28), ~25 min.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏘️ Tamsui Old Street <span class="time-cost">NT$150–200 snacks</span></div>
+            <div class="time-desc">Historic waterfront district. Try iron eggs, fish crackers, and the famous A-Gei tofu stuffed with glass noodles.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Sunset</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌅 Fisherman's Wharf Sunset <span class="time-cost">Free</span></div>
+            <div class="time-desc"><strong>Sunset ~18:08 in late March</strong> — take the ferry or bike to Fisherman's Wharf. The "Lover's Bridge" lit at dusk is stunning. Best sunset spot in Taipei area!</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🥚 Iron Eggs (鐵蛋)</span>
+        <span class="food-tag">🧀 A-Gei Tofu</span>
+        <span class="food-tag">🐟 Fish Crackers</span>
+        <span class="food-tag">🍡 Tamsui Fishballs</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+Station+Taipei/Beitou+Thermal+Valley+Taipei/Tamsui+Old+Street/Fisherman%27s+Wharf+Tamsui" target="_blank" rel="noopener">📍 Day 5 Full Route</a>
+        <a class="btn-maps" href="https://www.google.com/maps/search/Beitou+Hot+Spring+Taipei" target="_blank" rel="noopener">🗺️ Beitou Hot Springs</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 6 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 6</span>
+        <span class="day-date">Wednesday, March 25</span>
+        <span class="day-label">🏔️ Elephant Mountain + Creative Parks</span>
+      </div>
+      <span class="day-budget-badge">NT$850–1,000</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="mrt-info">
+        <strong>🚇 Route:</strong> Ximen (BL12) → Taipei City Hall (BL18, Blue Line) · ~22 min → walk to Elephant Mountain. Then: Taipei City Hall → Yongchun (BL19) → Songshan Creative Park. Finish at Tonghua Night Market near Linjiang St.
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Early AM</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏔️ Elephant Mountain Sunrise Hike <span class="time-cost">Free</span></div>
+            <div class="time-desc">Go early (7–8am) to avoid heat and get best 101 views! Blue Line to Taipei City Hall (BL18), 15-min walk + 20-min hike up 1,120 stone steps. One of the best Taipei skyline views.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">☕ Breakfast in Xinyi District <span class="time-cost">NT$100–150</span></div>
+            <div class="time-desc">Post-hike breakfast at a local café near Taipei City Hall. Congee or soy milk + fried dough (油條).</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Midday</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🎨 Songshan Cultural &amp; Creative Park <span class="time-cost">Free</span></div>
+            <div class="time-desc">MRT to Yongchun (BL19), 10-min walk. Repurposed tobacco factory with design exhibitions, shops, and cafés. ~1.5 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Afternoon</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏭 Huashan 1914 Creative Park <span class="time-cost">Free entry</span></div>
+            <div class="time-desc">MRT to Zhongxiao Xinsheng (BL15), short walk. Former winery transformed into arts space with indie shops, exhibitions, and food stalls. ~1.5 hrs.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Evening</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🌙 Tonghua Night Market (Linjiang St.) <span class="time-cost">NT$300–400</span></div>
+            <div class="time-desc">MRT to Linan (BR10) or Daan (BR12). More local, less touristy night market. Great for Taiwan sausage, scallion crepes, and shaved ice.</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🌭 Taiwan Sausage</span>
+        <span class="food-tag">🫔 Scallion Crepe</span>
+        <span class="food-tag">🍧 Shaved Ice</span>
+        <span class="food-tag">🥣 Braised Pork Rice</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+Station+Taipei/Elephant+Mountain+Taipei/Songshan+Cultural+Creative+Park+Taipei/Huashan+1914+Creative+Park+Taipei/Tonghua+Night+Market+Taipei" target="_blank" rel="noopener">📍 Day 6 Full Route</a>
+        <a class="btn-maps" href="https://www.google.com/maps/search/Elephant+Mountain+Taipei+hiking+trail" target="_blank" rel="noopener">🗺️ Elephant Mountain Trail</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 7 -->
+  <div class="day-card">
+    <div class="day-header" onclick="toggle(this)">
+      <div class="day-header-left">
+        <span class="day-number">Day 7</span>
+        <span class="day-date">Thursday, March 26</span>
+        <span class="day-label">🛫 Departure Day</span>
+      </div>
+      <span class="day-budget-badge">NT$850–1,150</span>
+      <span class="day-chevron">▼</span>
+    </div>
+    <div class="day-body hidden">
+      <div class="warning-note">
+        ⚠️ <strong>Important:</strong> Leave your hotel at least 3–4 hours before your flight departure. Airport MRT takes ~40 min from Taipei Main Station. Allow time for check-in and immigration.
+      </div>
+      <div class="mrt-info" style="margin-top:10px;">
+        <strong>🚇 Departure Route:</strong> Ximen (BL12) → Taipei Main Station (BL12) → Airport MRT Express → Terminal 1 or 2 · ~40 min · NT$160
+      </div>
+      <div class="schedule">
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">☕ Breakfast at Hotel / Local Café <span class="time-cost">NT$100–150</span></div>
+            <div class="time-desc">Enjoy a final Taiwanese breakfast: sweet potato congee, steamed buns, or soy milk with 油條 (fried dough).</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Morning</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🛍️ Final Shopping at Ximending <span class="time-cost">NT$500–800</span></div>
+            <div class="time-desc">Last-minute souvenirs, snacks, and gifts. Try pineapple cakes (鳳梨酥) for gifts — available at many bakeries. Check hotel luggage storage if needed.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Depart</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🏨 Hotel Checkout &amp; Luggage <span class="time-cost">—</span></div>
+            <div class="time-desc">Check out. Confirm luggage is within airline limits. Head to Ximen MRT station.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Transit</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">🚇 MRT to Taipei Main → Airport <span class="time-cost">NT$160</span></div>
+            <div class="time-desc">Blue Line from Ximen → Taipei Main. Take Airport MRT Express to Taoyuan Terminal 1 or 2. Runs every ~15 min.</div>
+          </div>
+        </div>
+        <div class="time-block">
+          <div class="time-col">Airport</div>
+          <div class="time-dot"></div>
+          <div class="time-content">
+            <div class="time-title">✈️ Departure from Taoyuan Airport <span class="time-cost">—</span></div>
+            <div class="time-desc">Return EasyCard for NT$100 deposit refund (keep NT$50 service fee in mind). Enjoy duty-free shopping at T2.</div>
+          </div>
+        </div>
+      </div>
+      <div class="food-tags">
+        <span class="food-tag">🍍 Pineapple Cakes</span>
+        <span class="food-tag">🫖 Sun Moon Lake Tea</span>
+        <span class="food-tag">🍪 Nougat Crackers</span>
+      </div>
+      <div class="btn-row">
+        <a class="btn-maps" href="https://www.google.com/maps/dir/Ximen+Station+Taipei/Taipei+Main+Station/Taoyuan+International+Airport" target="_blank" rel="noopener">📍 Hotel → Airport Route</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOD GUIDE -->
+  <div class="section-title" id="food">🍜 Food Guide by Location</div>
+  <div class="food-grid">
+    <div class="food-card">
+      <div class="food-card-title">🛍️ Ximending</div>
+      <div class="food-item"><span class="food-dot"></span>Scallion Pancake (葱油餅)</div>
+      <div class="food-item"><span class="food-dot"></span>Stinky Tofu (臭豆腐)</div>
+      <div class="food-item"><span class="food-dot"></span>Bubble Tea (珍珠奶茶)</div>
+      <div class="food-item"><span class="food-dot"></span>Grilled Squid on skewer</div>
+      <div class="food-item"><span class="food-dot"></span>Pig Blood Cake (豬血糕)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🌙 Ningxia Night Market</div>
+      <div class="food-item"><span class="food-dot"></span>Oyster Vermicelli (蚵仔麵線)</div>
+      <div class="food-item"><span class="food-dot"></span>Braised Pork Rice (滷肉飯)</div>
+      <div class="food-item"><span class="food-dot"></span>Pork Liver Soup (豬肝湯)</div>
+      <div class="food-item"><span class="food-dot"></span>Taro Balls (芋圓)</div>
+      <div class="food-item"><span class="food-dot"></span>Fried Chicken Cutlet (雞排)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🎆 Raohe Night Market</div>
+      <div class="food-item"><span class="food-dot"></span>Black Pepper Bun (胡椒餅)</div>
+      <div class="food-item"><span class="food-dot"></span>Herbal Pork Ribs Soup</div>
+      <div class="food-item"><span class="food-dot"></span>Stewed Duck Blood with Tofu</div>
+      <div class="food-item"><span class="food-dot"></span>Grilled Corn on the cob</div>
+      <div class="food-item"><span class="food-dot"></span>Scallion Crepe (蛋餅)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🏮 Jiufen</div>
+      <div class="food-item"><span class="food-dot"></span>Taro Ball Dessert (芋圓)</div>
+      <div class="food-item"><span class="food-dot"></span>Fish Ball Soup (魚丸湯)</div>
+      <div class="food-item"><span class="food-dot"></span>Sticky Rice (筒仔米糕)</div>
+      <div class="food-item"><span class="food-dot"></span>Red Bean Mochi</div>
+      <div class="food-item"><span class="food-dot"></span>Sweet Potato Balls (地瓜球)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🌅 Tamsui</div>
+      <div class="food-item"><span class="food-dot"></span>Iron Eggs (鐵蛋)</div>
+      <div class="food-item"><span class="food-dot"></span>A-Gei Stuffed Tofu (阿給)</div>
+      <div class="food-item"><span class="food-dot"></span>Fishball Soup (魚丸湯)</div>
+      <div class="food-item"><span class="food-dot"></span>Grilled Corn &amp; Squid</div>
+      <div class="food-item"><span class="food-dot"></span>Tamsui Fish Crackers (蝦捲)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🫖 Maokong</div>
+      <div class="food-item"><span class="food-dot"></span>Tieguanyin Oolong Tea</div>
+      <div class="food-item"><span class="food-dot"></span>Tea-Smoked Chicken (茶燻雞)</div>
+      <div class="food-item"><span class="food-dot"></span>Mountain Vegetable Stir Fry</div>
+      <div class="food-item"><span class="food-dot"></span>Tea Egg &amp; Green Tea Ice Cream</div>
+      <div class="food-item"><span class="food-dot"></span>Three-Cup Chicken (三杯雞)</div>
+    </div>
+    <div class="food-card">
+      <div class="food-card-title">🌃 Tonghua Night Market</div>
+      <div class="food-item"><span class="food-dot"></span>Taiwan Sausage with Rice (大腸包小腸)</div>
+      <div class="food-item"><span class="food-dot"></span>Scallion Crepe (蔥油餅)</div>
+      <div class="food-item"><span class="food-dot"></span>Shaved Ice (雪花冰)</div>
+      <div class="food-item"><span class="food-dot"></span>Oyster Omelette (蚵仔煎)</div>
+      <div class="food-item"><span class="food-dot"></span>Mango Smoothie</div>
+    </div>
+  </div>
+
+  <!-- BUDGET TABLE -->
+  <div class="section-title" id="budget">💰 Budget Summary</div>
+  <div style="overflow-x:auto;">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Theme</th>
+          <th>Low Est.</th>
+          <th>High Est.</th>
+          <th>Midpoint</th>
+          <th>Key Costs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Day 1</strong> Mar 20</td>
+          <td>Arrival + Ximending</td>
+          <td>NT$500</td>
+          <td>NT$1,000</td>
+          <td><strong>NT$750</strong></td>
+          <td>Airport MRT NT$160, Street food NT$300</td>
+        </tr>
+        <tr>
+          <td><strong>Day 2</strong> Mar 21</td>
+          <td>Historic Taipei</td>
+          <td>NT$830</td>
+          <td>NT$1,030</td>
+          <td><strong>NT$930</strong></td>
+          <td>MRT NT$80, Night market food NT$400</td>
+        </tr>
+        <tr>
+          <td><strong>Day 3</strong> Mar 22</td>
+          <td>North Coast Tour</td>
+          <td>NT$1,200</td>
+          <td>NT$1,400</td>
+          <td><strong>NT$1,300</strong></td>
+          <td>Klook tour NT$800, Yehliu NT$80, Lantern NT$200</td>
+        </tr>
+        <tr>
+          <td><strong>Day 4</strong> Mar 23</td>
+          <td>Zoo + Maokong + 101</td>
+          <td>NT$1,700</td>
+          <td>NT$2,000</td>
+          <td><strong>NT$1,850</strong></td>
+          <td>Zoo NT$60, Gondola NT$120, 101 NT$600, Lunch NT$500</td>
+        </tr>
+        <tr>
+          <td><strong>Day 5</strong> Mar 24</td>
+          <td>Beitou + Tamsui</td>
+          <td>NT$820</td>
+          <td>NT$1,020</td>
+          <td><strong>NT$920</strong></td>
+          <td>Hot spring NT$400, MRT NT$100, Snacks NT$300</td>
+        </tr>
+        <tr>
+          <td><strong>Day 6</strong> Mar 25</td>
+          <td>Elephant Mtn + Parks</td>
+          <td>NT$850</td>
+          <td>NT$1,000</td>
+          <td><strong>NT$925</strong></td>
+          <td>MRT NT$100, Night market NT$350, Cafés NT$200</td>
+        </tr>
+        <tr>
+          <td><strong>Day 7</strong> Mar 26</td>
+          <td>Departure</td>
+          <td>NT$850</td>
+          <td>NT$1,150</td>
+          <td><strong>NT$1,000</strong></td>
+          <td>Airport MRT NT$160, Souvenirs NT$600</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2"><strong>🧾 TRIP TOTAL ESTIMATE</strong></td>
+          <td><strong>NT$6,750</strong></td>
+          <td><strong>NT$8,600</strong></td>
+          <td><strong>NT$7,675</strong></td>
+          <td>≈ PHP 13,800–15,500 / USD 210–260</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">* Excludes hotel accommodation, international flights, and personal shopping. EasyCard NT$500 deposit recommended at arrival.</div>
+
+  <!-- TRANSPORT -->
+  <div class="section-title" id="transport">🚇 Transportation Summary</div>
+  <div class="transport-grid">
+    <div class="transport-card">
+      <div class="transport-day">Day 1 · Mar 20</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> Ximen ↔ Taipei Main</div>
+      <div class="transport-line">🛫 Airport MRT Express</div>
+      <div style="font-size:11px;color:var(--text-muted);">~55 min airport to hotel · NT$160</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 2 · Mar 21</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> Longshan Temple (BL07)</div>
+      <div class="transport-line"><span class="mrt-pill mrt-green">Green GR</span> CKS Memorial (GR24)</div>
+      <div class="transport-line"><span class="mrt-pill mrt-brown">Brown BR</span> Daan → Forest Park</div>
+      <div style="font-size:11px;color:var(--text-muted);">~35 min commute · NT$80</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 3 · Mar 22</div>
+      <div class="transport-line">🚌 Klook Tour Bus (recommended)</div>
+      <div class="transport-line">🚂 DIY: TRA Train to Ruifang</div>
+      <div style="font-size:11px;color:var(--text-muted);">Klook saves ~3 hrs vs DIY routing</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 4 · Mar 23</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> → Transfer</div>
+      <div class="transport-line"><span class="mrt-pill mrt-brown">Brown BR</span> → Taipei Zoo (BR01)</div>
+      <div class="transport-line"><span class="mrt-pill mrt-red">Red R</span> → Taipei 101 (R03)</div>
+      <div style="font-size:11px;color:var(--text-muted);">~45 min full day commute · NT$90</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 5 · Mar 24</div>
+      <div class="transport-line"><span class="mrt-pill mrt-red">Red R</span> Full Red Line Day</div>
+      <div class="transport-line">Beitou (R21) → Xinbeitou (R22A)</div>
+      <div class="transport-line">→ Tamsui (R28)</div>
+      <div style="font-size:11px;color:var(--text-muted);">~40 min total commute · NT$100</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 6 · Mar 25</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> → Taipei City Hall (BL18)</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> → Yongchun (BL19)</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> → Zhongxiao Xinsheng</div>
+      <div style="font-size:11px;color:var(--text-muted);">~25 min commute · NT$80</div>
+    </div>
+    <div class="transport-card">
+      <div class="transport-day">Day 7 · Mar 26</div>
+      <div class="transport-line"><span class="mrt-pill mrt-blue">Blue BL</span> Ximen → Taipei Main</div>
+      <div class="transport-line">🛫 Airport MRT Express</div>
+      <div style="font-size:11px;color:var(--text-muted);">~40 min total · NT$160</div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💳 EasyCard Tips:</strong> Purchase at any MRT station for NT$500 (NT$400 deposit + NT$100 credit). Tap in/out at all MRT gates, buses, Maokong Gondola, and some convenience stores. Get 20% discount on MRT fares vs cash. Return at departure for NT$100 deposit refund (NT$50 handling fee applies if card has remaining balance under NT$50). Reloadable at any convenience store or MRT machine. <strong>Pro tip:</strong> Grouping sightseeing by MRT line (like the Red Line for Day 5) reduces backtracking and saves 30–45 min per day.
+  </div>
+
+  <!-- WEATHER -->
+  <div class="section-title" id="weather">🌦️ Weather — Taipei Late March</div>
+  <div class="weather-grid">
+    <div class="weather-card">
+      <div class="weather-icon">🌡️</div>
+      <div class="weather-label">Temperature</div>
+      <div class="weather-value">17–24°C</div>
+      <div class="weather-sub">Comfortable, slightly cool evenings</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">🌧️</div>
+      <div class="weather-label">Rainfall</div>
+      <div class="weather-value">Moderate</div>
+      <div class="weather-sub">~120mm/month, showers common</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">💧</div>
+      <div class="weather-label">Humidity</div>
+      <div class="weather-value">75–85%</div>
+      <div class="weather-sub">Feels muggy at midday</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">🌅</div>
+      <div class="weather-label">Sunset</div>
+      <div class="weather-value">~18:08</div>
+      <div class="weather-sub">Best for Tamsui &amp; Taipei 101</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">👕</div>
+      <div class="weather-label">Clothing</div>
+      <div class="weather-value">Light layers</div>
+      <div class="weather-sub">T-shirt + light jacket for evenings</div>
+    </div>
+    <div class="weather-card">
+      <div class="weather-icon">🎒</div>
+      <div class="weather-label">Pack</div>
+      <div class="weather-value">Compact umbrella</div>
+      <div class="weather-sub">+ light rain jacket, sunscreen</div>
+    </div>
+  </div>
+  <div class="tip-box" style="margin-top:12px;background:#f0f9ff;border-color:#bae6fd;border-left-color:#0284c7;color:#0c4a6e;">
+    <strong>🌸 Spring Tip:</strong> Late March is Taipei's cherry blossom season! Check Yangmingshan National Park (Red Line bus from Jiantan station) for free cherry blossom viewing — typically peak bloom late February to mid-March, but may persist into late March. Also, spring rains mean the mountains can have low cloud cover — check weather before Day 3 (North Coast) and bring a rain jacket for Jiufen's hilly streets.
+  </div>
+
+  <div style="text-align:center;padding:30px 0 10px;font-size:11px;color:var(--text-muted);">
+    🇹🇼 Taipei Travel Itinerary · March 20–26, 2026 · Wanhua District<br>
+    Generated for trip planning use only. Prices and schedules subject to change. Always verify opening hours before visiting.
+    <br><br>
+    <button class="btn-maps" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:inline-flex;margin-top:4px;">↑ Back to Top</button>
+  </div>
+
+</main>
+
+<script>
+  function toggle(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.day-chevron');
+    body.classList.toggle('hidden');
+    chevron.classList.toggle('open');
+  }
+
+  function expandAll() {
+    document.querySelectorAll('.day-body').forEach(b => b.classList.remove('hidden'));
+    document.querySelectorAll('.day-chevron').forEach(c => c.classList.add('open'));
+  }
+
+  function collapseAll() {
+    document.querySelectorAll('.day-body').forEach(b => b.classList.add('hidden'));
+    document.querySelectorAll('.day-chevron').forEach(c => c.classList.remove('open'));
+  }
+
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Open Day 1 by default
+  document.querySelector('.day-body').classList.remove('hidden');
+</script>
+</body>
+</html>
